@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap">
+		<link rel="stylesheet" href="styles/main.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	</head>
+	<body class="page">
+		<form class="form" action="https://digital-spectr.com/ac/academy.php" method="POST">
+			<h1 class="form__title">Задать вопрос</h1>
+			<input class="form__input" type="text" name="name" placeholder="Фамилия Имя Отчество *" pattern="^[А-Яа-яЁё\-\s]+$" required>
+			<input class="form__input" type="tel" name="phone" placeholder="Телефон *" pattern="^[+]?[0-9\s\-]{3,25}$" required>
+			<input class="form__input" type="email" name="email" placeholder="Email">
+			<button class="form__button" type="submit">ОТПРАВИТЬ ЗАПРОС</button>
+		</form>
+		<script>
+			$(document).ready(function(){
+				$('.form').on('submit',function(e){
+					e.preventDefault();
+					$.ajax({
+						url: $(this).attr('action'),
+						type: $(this).attr('method'),
+						data: $(this).serialize(),
+						crossDomain: true, 
+						success: function(data) {
+							alert(data.text);
+						},
+						error: function(jqXHR, exception) {
+							alert(`status: ${jqXHR.status}, exception: ${exception}`);
+						}
+					});
+				});
+			});
+		</script>
+	</body>
+</html>
